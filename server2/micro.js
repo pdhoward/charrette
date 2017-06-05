@@ -99,7 +99,10 @@ var getMeMovie = function(movieName) {
     movieName = "Mr Nobody";
   }
 
-  var urlHit = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=full&tomatoes=true&r=json";
+  var urlHit = "http://www.omdbapi.com/?i=tt3896198&apikey=9b9bc8c7&t=" + movieName + "&y=&plot=full&tomatoes=true&r=json";
+  
+  console.log("Executing Movie Request")  
+  console.log(urlHit)
 
   request(urlHit, function(error, response, body) {
     if (!error && response.statusCode === 200) {
@@ -145,16 +148,16 @@ var doWhatItSays = function() {
 // Function for determining which command is executed
 var pick = function(caseData, functionData) {
   switch (caseData) {
-    case "my-tweets":
+    case "tweet":
       getMyTweets();
       break;
-    case "spotify-this-song":
+    case "song":
       getMeSpotify(functionData);
       break;
-    case "movie-this":
+    case "movie":
       getMeMovie(functionData);
       break;
-    case "do-what-it-says":
+    case "do":
       doWhatItSays();
       break;
     default:
