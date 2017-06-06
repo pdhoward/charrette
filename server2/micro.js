@@ -1,10 +1,6 @@
 // Spoof on microservices
 // testing constructors and and a framework for charrette
 // =====================================
-require('babel-core/register')({
-      presets: ['es2015']
-  });
-require('babel-polyfill');
 
 import express        from 'express';
 import path           from 'path';
@@ -27,7 +23,7 @@ const port =        setup.SERVER.PORT;
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 //app.use(cookieParser(sessionSecret));
-app.use(favicon(path.join(__dirname, '..', '/client/img/favicon.ico')));
+app.use(favicon(path.join(__dirname, '.', '/client/img/favicon.ico')));
 
 app.options('*', cors());
 app.use(cors());
@@ -124,10 +120,10 @@ var pick = function(caseData, functionData) {
   switch (caseData) {
     case "tweet":
       getMyTweets();
-      break; 
+      break;
 	case "construct":
       getConstructor();
-      break;  
+      break;
     case "do":
       doWhatItSays();
       break;
@@ -153,4 +149,3 @@ httpServer.listen(port);
 
 
 console.log("running on port " + port);
-
