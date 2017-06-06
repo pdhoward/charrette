@@ -1,6 +1,7 @@
 // Spoof on microservices
 // testing constructors and and a framework for charrette
 // =====================================
+require( 'dotenv' ).config();
 
 import express        from 'express';
 import path           from 'path';
@@ -10,6 +11,7 @@ import favicon        from 'serve-favicon';
 import http           from 'http';
 import setup          from './config/setup';
 import secrets        from './config/secrets'
+import socketIo       from 'socket.io'
 
 
 const app =         express();
@@ -32,8 +34,6 @@ const httpServer =      new http.Server(app);
 //const htmlFile =        path.resolve(__dirname, '../client/index.html');
 //const buildFolder =     path.resolve(__dirname, '../build');
 
-// Import the mainlone constructor file
-var Classroom = require("./integrate/classroom.js");
 
 // Import the Keys file
 var keys = require("./keys.js");
@@ -88,16 +88,6 @@ var getMyTweets = function() {
   });
 };
 
-var getConstructor = function() {
-	// creating and storing a new classroom object
-	var firstClass = new Classroom("Ahmed", 3187);
-
-	// calling the addStudent method on our firstClass object
-	firstClass.addStudent("Jacob", "Coding", 3.87);
-
-	console.log(firstClass);
-}
-
 // Function for running a command based on text file
 var doWhatItSays = function() {
   fs.readFile("random.txt", "utf8", function(error, data) {
@@ -128,24 +118,43 @@ var pick = function(caseData, functionData) {
       doWhatItSays();
       break;
     default:
-      console.log("LIRI doesn't know that");
+      console.log("hmmm - I do not recognize that");
   }
 };
 
-// Function which takes in command line arguments and executes correct function accordigly
-var runThis = function(argOne, argTwo) {
-  pick(argOne, argTwo);
-};
 
-// MAIN PROCESS
-// =====================================
-runThis(process.argv[2], process.argv[3]);
+//////////////////////////////////////////////////////////////////////////
+//////////////////// Register and Config Routes /////////////////////////
+////////////////////////////////////////////////////////////////////////
 
+const salesRoute =       express.Router();
+const proofRoute =       express.Router();
+const analyticRoute =    express.Router();
+
+require('./routes/sales_route')(salesRoute);
+//require('./routes/proof_route')(proofRoute);
+//require('./routes/analytic_route')(analyticRoute);
+
+//////////////////////////////////////////////////////////////////////////
+///////////////////////////// API CATALOGUE /////////////////////////////
+////////////////////////////////////////////////////////////////////////
+
+app.use('/api', salesRoute)
+//app.use('/api', proofRoute)
+//app.use('/api', analyticRoute);
 
 ///////////////////////////////////////////////////////////////////////
 /////////////////Launch Server---  Connect Sockets ////////////////////
 //////////////////////////////////////////////////////////////////////
 httpServer.listen(port);
+
+const io = socketIo(httpServer);
+
+io.on('connection', function(socket) {
+  console.log("someone just joined sockets")
+})
+
+app.set('socketio', io);
 
 
 console.log("running on port " + port);
