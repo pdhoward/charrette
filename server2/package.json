@@ -1,16 +1,19 @@
 {
-  "name": "hw-solution",
+  "name": "charrette2",
   "version": "1.0.0",
   "description": "",
   "main": "keys.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Patrick Howard",
+  "license": "MIT",
   "dependencies": {
+	"babel-core": "^6.5.2",
+	"babel-polyfill": "^6.7.4",
+	"express": "4.14.0",
     "request": "^2.69.0",
     "spotify": "^0.3.0",
-    "twitter": "^1.2.5"
+    "twitter": "^1.2.5",
   }
 }

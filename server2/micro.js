@@ -1,14 +1,49 @@
 // Spoof on microservices
 // testing constructors and and a framework for charrette
 // =====================================
+require('babel-core/register')({
+      presets: ['es2015']
+  });
+require('babel-polyfill');
+
+import express        from 'express';
+import path           from 'path';
+import bodyParser     from 'body-parser'
+import cors           from 'cors';
+import favicon        from 'serve-favicon';
+import http           from 'http';
+import setup          from './config/setup';
+import secrets        from './config/secrets'
+
+
+const app =         express();
+const host =        setup.SERVER.HOST;
+const port =        setup.SERVER.PORT;
+
+//////////////////////////////////////////////////////////////////////
+///////////////////////// Middleware Config ////////////////////////////
+//////////////////////////////////////////////////////////////////////
+
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+//app.use(cookieParser(sessionSecret));
+app.use(favicon(path.join(__dirname, '..', '/client/img/favicon.ico')));
+
+app.options('*', cors());
+app.use(cors());
+
+const httpServer =      new http.Server(app);
+//const htmlFile =        path.resolve(__dirname, '../client/index.html');
+//const buildFolder =     path.resolve(__dirname, '../build');
+
+// Import the mainlone constructor file
+var Classroom = require("./integrate/classroom.js");
+
 // Import the Keys file
 var keys = require("./keys.js");
 
 // Import the Twitter NPM package.
 var Twitter = require("twitter");
-
-// Import the Spotify npm package.
-var spotify = require("spotify");
 
 // Import the request npm package.
 var request = require("request");
@@ -30,41 +65,6 @@ var writeToLog = function(data) {
     }
 
     console.log("log.txt was updated!");
-  });
-};
-
-// Helper function that gets the artist name
-var getArtistNames = function(artist) {
-  return artist.name;
-};
-
-// Function for running a Spotify search
-var getMeSpotify = function(songName) {
-
-  if (songName === undefined) {
-    songName = "What's my age again";
-  }
-
-  spotify.search({ type: "track", query: songName }, function(err, data) {
-    if (err) {
-      console.log("Error occurred: " + err);
-      return;
-    }
-
-    var songs = data.tracks.items;
-    var data = [];
-
-    for (var i = 0; i < songs.length; i++) {
-      data.push({
-        "artist(s)": songs[i].artists.map(getArtistNames),
-        "song name: ": songs[i].name,
-        "preview song: ": songs[i].preview_url,
-        "album: ": songs[i].album.name
-      });
-    }
-
-    console.log(data);
-    writeToLog(data);
   });
 };
 
@@ -92,41 +92,15 @@ var getMyTweets = function() {
   });
 };
 
-// Function for running a Movie Search
-var getMeMovie = function(movieName) {
+var getConstructor = function() {
+	// creating and storing a new classroom object
+	var firstClass = new Classroom("Ahmed", 3187);
 
-  if (movieName === undefined) {
-    movieName = "Mr Nobody";
-  }
+	// calling the addStudent method on our firstClass object
+	firstClass.addStudent("Jacob", "Coding", 3.87);
 
-  var urlHit = "http://www.omdbapi.com/?i=tt3896198&apikey=9b9bc8c7&t=" + movieName + "&y=&plot=full&tomatoes=true&r=json";
-  
-  console.log("Executing Movie Request")  
-  console.log(urlHit)
-
-  request(urlHit, function(error, response, body) {
-    if (!error && response.statusCode === 200) {
-      var jsonData = JSON.parse(body);
-
-      var data = {
-        "Title:": jsonData.Title,
-        "Year:": jsonData.Year,
-        "Rated:": jsonData.Rated,
-        "IMDB Rating:": jsonData.imdbRating,
-        "Country:": jsonData.Country,
-        "Language:": jsonData.Language,
-        "Plot:": jsonData.Plot,
-        "Actors:": jsonData.Actors,
-        "Rotten Tomatoes Rating:": jsonData.tomatoRating,
-        "Rotton Tomatoes URL:": jsonData.tomatoURL
-      };
-
-      console.log(data);
-      writeToLog(data);
-    }
-  });
-
-};
+	console.log(firstClass);
+}
 
 // Function for running a command based on text file
 var doWhatItSays = function() {
@@ -150,13 +124,10 @@ var pick = function(caseData, functionData) {
   switch (caseData) {
     case "tweet":
       getMyTweets();
-      break;
-    case "song":
-      getMeSpotify(functionData);
-      break;
-    case "movie":
-      getMeMovie(functionData);
-      break;
+      break; 
+	case "construct":
+      getConstructor();
+      break;  
     case "do":
       doWhatItSays();
       break;
@@ -173,3 +144,13 @@ var runThis = function(argOne, argTwo) {
 // MAIN PROCESS
 // =====================================
 runThis(process.argv[2], process.argv[3]);
+
+
+///////////////////////////////////////////////////////////////////////
+/////////////////Launch Server---  Connect Sockets ////////////////////
+//////////////////////////////////////////////////////////////////////
+httpServer.listen(port);
+
+
+console.log("running on port " + port);
+
