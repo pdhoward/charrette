@@ -9,6 +9,7 @@
   "author": "Patrick Howard",
   "license": "MIT",
   "dependencies": {
+     "async": "2.1.4",
 	   "express": "4.14.0",
      "body-parser": "*",
      "cors": "^2.7.1",
