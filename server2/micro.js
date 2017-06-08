@@ -139,7 +139,7 @@ require('./routes/proof_route')(proofRoute);
 ///////////////////////////// API CATALOGUE /////////////////////////////
 ////////////////////////////////////////////////////////////////////////
 
-app.use('/api', salesRoute)
+//app.use('/api', salesRoute)
 app.use('/api', proofRoute)
 //app.use('/api', analyticRoute);
 

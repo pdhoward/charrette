@@ -6,10 +6,7 @@
 require( 'dotenv' ).config();
 
 import bodyParser     from 'body-parser'
-
-
-// Import the mainlone constructor file
-import Charrette   from "../integrate/charrette.js";
+import Charrette      from "../integrate/hypermarket.js";
 
 const getConstructor = function() {
 	// creating and storing a new microservices conflict object
