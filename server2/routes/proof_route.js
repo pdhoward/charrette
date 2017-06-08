@@ -4,8 +4,9 @@
 ////////////////////////////////////////////////////////////////////////
 
 require( 'dotenv' ).config();
-import bodyParser     from 'body-parser';
+import bodyParser       from 'body-parser';
 import HyperMarket      from "../integrate/hypermarket.js";
+import clientObjects    from "../config/clients.js"
 
 
 // create an event queue
@@ -29,7 +30,7 @@ module.exports = function(router) {
 	                                text: 'experimental process',
 	                                source: 'sales',
 	                                workreq: 'this is the workreq'});
-
+		hyper.configureClients(clientObjects)
 		// assign a callback
 	  q.drain = function() {
 	    console.log('all items have been processed');

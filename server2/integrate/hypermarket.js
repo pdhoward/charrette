@@ -8,13 +8,17 @@
 
 import uuid             from 'uuid/v1';
 import EventSource      from './eventsource.js';
+import HyperClient      from './clients/hyperclient.js';
 
 const NEW_SESSION =     'New Session';
 const ACTIVE_SESSION =  'Active Session';
 const END_SESSION =     'End Session';
 
+// private
 let n = 0;
 
+
+//public
 module.exports = HyperMarket;
 
 // constructor function for 'straight through' execution of microservices
@@ -46,6 +50,22 @@ HyperMarket.prototype.sessionState = function() {
   if (this._endSession)    return END_SESSION;
   if (this._activeSession) return ACTIVE_SESSION;
 };
+
+HyperMarket.prototype.configureClients = function(obj) {
+  let hyperclient = new HyperClient;
+  hyperclient.configure(obj);
+  console.log("--------------")
+  console.log("Configure Client Object")
+
+}
+
+HyperMarket.prototype.configureAgents = function(obj) {
+
+}
+
+HyperMarket.prototype.configurePlatforms = function(obj) {
+
+}
 
 HyperMarket.prototype.recordSession = function(data) {
   this.workreq = Object.assign(this.workreq, data);
