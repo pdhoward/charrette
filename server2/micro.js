@@ -121,11 +121,7 @@ var pick = function(caseData, functionData) {
       console.log("hmmm - I do not recognize that");
   }
 };
-// create an event queue
-var q = require('async/queue')(function (task, callback) {
-    console.log('hello ' + task.name);
-    callback();
-}, 2);
+
 
 //////////////////////////////////////////////////////////////////////////
 //////////////////// Register and Config Routes /////////////////////////
@@ -136,31 +132,15 @@ const proofRoute =       express.Router();
 const analyticRoute =    express.Router();
 
 require('./routes/sales_route')(salesRoute);
-//require('./routes/proof_route')(proofRoute);
+require('./routes/proof_route')(proofRoute);
 //require('./routes/analytic_route')(analyticRoute);
 
 //////////////////////////////////////////////////////////////////////////
 ///////////////////////////// API CATALOGUE /////////////////////////////
 ////////////////////////////////////////////////////////////////////////
 
-app.use('/api', function(req, res, next){
-  // assign a callback
-  q.drain = function() {
-    console.log('all items have been processed');
-    return;
-  }
-  // add some items to the queue
-  q.push({name: 'foo'}, function (err) {
-    console.log('finished processing foo');
-  });
-  q.push({name: 'bar'}, function (err) {
-    console.log('finished processing bar');
-  });
-  return next()
-
-})
 app.use('/api', salesRoute)
-//app.use('/api', proofRoute)
+app.use('/api', proofRoute)
 //app.use('/api', analyticRoute);
 
 ///////////////////////////////////////////////////////////////////////
