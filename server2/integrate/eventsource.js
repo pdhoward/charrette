@@ -1,9 +1,9 @@
 // constructor function for creating event objects
-const EventSource = function(api) {
+
+module.exports = EventSource;
+
+function EventSource (api) {
   this.api = api;
   this.event = "Event Source";
 
 };
-
-// exporting our event constructor
-module.exports = EventSource;

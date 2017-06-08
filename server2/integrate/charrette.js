@@ -1,8 +1,10 @@
 
 const EventSource = require("./eventsource.js");
 
+module.exports = Charrette
+
 // constructor function for 'straight through' execution of microservices
-const Charrette = function(workreq) {
+function Charrette (workreq) {
   this.events = [];
   this.numEvents = 0;
   this.workreq = workreq;
@@ -16,5 +18,3 @@ const Charrette = function(workreq) {
     console.log(this.events)
   };
 };
-
-module.exports = Charrette

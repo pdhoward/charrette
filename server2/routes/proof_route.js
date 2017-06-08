@@ -4,17 +4,9 @@
 ////////////////////////////////////////////////////////////////////////
 
 require( 'dotenv' ).config();
-import bodyParser     from 'body-parser'
-// Import the mainlone constructor file
+import bodyParser     from 'body-parser';
 import Charrette   from "../integrate/charrette.js";
 
-// constructor
-const getConstructor = function() {
-	// creating and storing a new microservices conflict object
-
-
-	console.log(charrette);
-}
 
 // create an event queue
 var q = require('async/queue')(function (task, callback) {
