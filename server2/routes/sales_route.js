@@ -14,13 +14,13 @@ import Charrette   from "../integrate/charrette.js";
 const getConstructor = function() {
 	// creating and storing a new microservices conflict object
 	let charrette = new Charrette({path: '/sales',
-                                 text: 'experminetal process',
+                                 text: 'experimental process',
                                  source: 'sales',
                                  workreq: 'this is the workreq'});
 
 	// calling the addEvent method on our object
 	charrette.addEvent({path: '/sales',
-                      text: 'experminetal process',
+                      text: 'experimental process',
                       source: 'sales'});
 
 	console.log(charrette);
