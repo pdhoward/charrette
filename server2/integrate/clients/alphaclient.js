@@ -1,6 +1,6 @@
 
 ////////////////////////////////////////////////////////////////
-/////                 hypermarket                       ///////
+/////                 AlphaChat                       ///////
 ////    Linking business with conversation markets     ///////
 ////                 c2016 xio                        ///////
 ////////////////////////////////////////////////////////////
@@ -26,14 +26,13 @@ let clientObject = {
 }
 
 //public
-module.exports = HyperClient;
+module.exports = AlphaClient;
 
 // constructor function for 'straight through' execution of microservices
-function HyperClient () {
+function AlphaClient () {
   this._clients = configureClients;
-
 };
 
-HyperClient.prototype.configure = function(obj) {
+AlphaClient.prototype.configure = function(obj) {
   console.log(obj)
 }

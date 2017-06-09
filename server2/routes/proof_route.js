@@ -5,15 +5,15 @@
 
 require( 'dotenv' ).config();
 import bodyParser       from 'body-parser';
-import HyperMarket      from "../integrate/hypermarket.js";
+import AlphaChat      from "../integrate/AlphaChat.js";
 import clientObjects    from "../config/clients.js"
 
 
 // create an event queue
-var q = require('async/queue')(function (hyper, callback) {
+var q = require('async/queue')(function (alpha, callback) {
 		console.log('------------------------------')
-    console.log(hyper);
-		hyper.executeSession({text: 'update'});
+    console.log(alpha);
+		alpha.executeSession({text: 'update'});
     callback();
 }, 2);
 
@@ -26,19 +26,19 @@ module.exports = function(router) {
   router.post('/sms', function(req, res, next) {
 		console.log('PROOF API Route');
 
-		let hyper = new HyperMarket ({path: '/sales',
+		let alpha = new AlphaChat ({path: '/sales',
 	                                text: 'experimental process',
 	                                source: 'sales',
 	                                workreq: 'this is the workreq'});
-		hyper.configureClients(clientObjects)
+		alpha.configureClients(clientObjects)
 		// assign a callback
 	  q.drain = function() {
 	    console.log('all items have been processed');
 	    return;
 	  }
 	  // add some items to the queue
-	  q.push(hyper, function (err) {
-	    console.log('finished processing a hypersession');
+	  q.push(alpha, function (err) {
+	    console.log('finished processing a alphasession');
 	  });
 
 		res.setHeader('Content-Type', 'text/xml')
