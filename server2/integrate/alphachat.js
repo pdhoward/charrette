@@ -6,9 +6,11 @@
 ////                 c2016 xio                        ///////
 ////////////////////////////////////////////////////////////
 
-import uuid             from 'uuid/v1';
-import EventSource      from './eventsource.js';
-import AlphaClient      from './clients/alphaclient.js';
+import uuid               from 'uuid/v1';
+import EventSource        from './eventsource.js';
+import AlphaClient        from './config/alphaclient.js';
+import AlphaAgent         from './config/alphaagent.js';
+import AlphaPlatform      from './config/alphaplatform.js';
 
 const NEW_SESSION =     'New Session';
 const ACTIVE_SESSION =  'Active Session';
@@ -51,11 +53,40 @@ AlphaChat.prototype.sessionState = function() {
   if (this._activeSession) return ACTIVE_SESSION;
 };
 
-AlphaChat.prototype.configureClients = function(obj) {
-  let alphaClient = new AlphaClient;
-  alphaClient.configure(obj);
-  console.log("--------------")
-  console.log("Configure Client Object")
+// Configure the client, agent and platform objects used to call services
+AlphaChat.prototype.configure = function(arry) {
+
+  let x = arry.length;
+  let isClient = false;
+  let isAgent = false;
+  let isPlatform = false;
+  if (x == 0) {
+    return new Error('1001: No configuration objects detected (.configure)')
+  }
+
+  arry.map(function(x){
+    if (x.name == "clients") {
+      let alphaClient = new AlphaClient;
+      isClient = true;
+      alphaClient.configure(x.data);
+    }
+    if (x.name == "agents") {
+      let alphaAgent = new AlphaAgent;
+      isAgent = true;
+      alphaAgent.configure(x.data);
+    }
+    if (x.name == "platforms") {
+      let alphaPlatform = new AlphaPlatform;
+      isPlatform = true;
+      alphaPlatform.configure(x.data);
+    }
+  })
+
+  if (isAgent && isPlatform) {
+    return
+  } else {
+    return new Error('1011: Missing mandatory configuration object (.configure agents or platforms)')
+  }
 
 }
 

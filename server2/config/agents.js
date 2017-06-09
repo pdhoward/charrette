@@ -1,92 +1,71 @@
 'use strict';
 
 ///////////////////////////////////////////////////////////////////////
-/////////////////// configure chaoticbot agents    ////////////////////
+/////////////////// configure alpha agents    ////////////////////
 //////////////////////////////////////////////////////////////////////
 
-import uuid 		      from 'node-uuid';
-import {getopenwhisk}  	  from '../handleapi/index'
 
 const configureAgents = [
-  { name: 'shipper',
-	id: '${Date.now()}${uuid.v4()}',
+  { name: 'shipper',	
 	avatar: 'https://www.gravatar.com/avatar/',
-	greeting: 'Hi I will help you ship',
-	priority: '1',
+	greeting: 'Hi I will help you ship',	
 	handle: 'cb-dev-shipproduct',
-	handler: getopenwhisk
+	platform: 'openwhisk'
 	   },
   { name: 'banter',
-  id: '${Date.now()}${uuid.v4()}',
-  avatar: 'https://www.gravatar.com/avatar/',
-  greeting: 'Hi I will help you ship',
-  priority: '1',
-  handle: 'cb-dev-banter',
-  handler: getopenwhisk
+	avatar: 'https://www.gravatar.com/avatar/',
+	greeting: 'Hi I will help you ship', 
+	handle: 'cb-dev-banter',
+	platform: 'openwhisk'
    	 },
-  { name: 'sales',
-    id: '${Date.now()}${uuid.v4()}',
+  { name: 'sales',   
     avatar: 'https://www.gravatar.com/avatar/',
-    greeting: 'Hi I am your sales rep',
-    priority: '1',
+    greeting: 'Hi I am your sales rep',   
     handle: 'cb-dev-sales',
-    handler: getopenwhisk
+	platform: 'openwhisk'
     },
-  { name: 'proof',
-    id: '${Date.now()}${uuid.v4()}',
+  { name: 'proof',   
     avatar: 'https://www.gravatar.com/avatar/',
-    greeting: 'Hi I am proof, here to provide a reference',
-    priority: '1',
+    greeting: 'Hi I am proof, here to provide a reference', 
     handle: 'cb-dev-proof',
-    handler: getopenwhisk
+	platform: 'openwhisk'
     },
-  { name: 'avatar',
-    id: '${Date.now()}${uuid.v4()}',
+  { name: 'avatar',    
     avatar: 'https://www.gravatar.com/avatar/',
-    greeting: 'Hi I am the avatar which creates live sessions',
-    priority: '1',
+    greeting: 'Hi I am the avatar which creates live sessions', 
     handle: 'cb-dev-avatar',
-    handler: getopenwhisk
+	platform: 'openwhisk'
     },
   { name: 'purchase',
-	id: '${Date.now()}${uuid.v4()}',
 	avatar: 'https://www.gravatar.com/avatar/',
-	greeting: 'Hi I will help you buy',
-	priority: '1',
+	greeting: 'Hi I will help you buy',	
 	handle: 'cb-dev-orderproduct',
-	handler: getopenwhisk
+	platform: 'openwhisk'
 	   },
   { name: 'payor',
-	id: '${Date.now()}${uuid.v4()}',
 	avatar: 'https://www.gravatar.com/avatar/',
 	greeting: 'Hi I will help you pay',
-	priority: '1',
 	handle: 'payor',
-	handler: 'slack'
+	platform: 'openwhisk'
 	    },
   { name: 'dispute',
-	id: '${Date.now()}${uuid.v4()}',
 	avatar: 'https://www.gravatar.com/avatar/',
 	greeting: 'Hi I can take your issue',
-	priority: '1',
 	handle: 'dispute',
-	handler: 'open'
+	platform: 'openwhisk'
 		},
-  { name: 'Nancy',
-	id: '${Date.now()}${uuid.v4()}',
+  { name: 'Alexa',
 	avatar: 'https://www.gravatar.com/avatar/',
-	greeting: 'Hello, this is Nancy. How can I help?',
-	priority: '1',
-	handle: 'nancy',
-	handler: 'google'
+	greeting: 'Hello, this is Alexa. How can I help?',	
+	handle: 'Alexa',
+	platform: 'openwhisk'
+
 		},
-  { name: 'chaotic',
-	id: '${Date.now()}${uuid.v4()}',
+  { name: 'chaotic',	
 	avatar: 'https://www.gravatar.com/avatar/',
 	greeting: 'Not known',
-	priority: '1',
 	handle: 'cb-dev-chaotic',
-	handler: getopenwhisk
+	platform: 'openwhisk'
 		}
 ]
 

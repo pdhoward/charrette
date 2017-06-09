@@ -34,5 +34,10 @@ function AlphaClient () {
 };
 
 AlphaClient.prototype.configure = function(obj) {
-  console.log(obj)
+  obj.map(function(x) {
+    clientObject = Object.assign(clientObject, x)
+    configureClients.push(clientObject);
+  })
+  console.log('---------------')
+  console.log('Configured Clients: ' + configureClients.length)
 }
