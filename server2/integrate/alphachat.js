@@ -18,6 +18,7 @@ const END_SESSION =     'End Session';
 
 // private
 let n = 0;
+let err = '';
 
 
 //public
@@ -61,7 +62,8 @@ AlphaChat.prototype.configure = function(arry) {
   let isAgent = false;
   let isPlatform = false;
   if (x == 0) {
-    return new Error('1001: No configuration objects detected (.configure)')
+    err = new Error('1001: No configuration objects detected (.configure)')
+    return err
   }
 
   arry.map(function(x){
@@ -85,7 +87,8 @@ AlphaChat.prototype.configure = function(arry) {
   if (isAgent && isPlatform) {
     return
   } else {
-    return new Error('1011: Missing mandatory configuration object (.configure agents or platforms)')
+    err = new Error('1011: Missing mandatory configuration object (.configure agents or platforms)')
+    return err
   }
 
 }

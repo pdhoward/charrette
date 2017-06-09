@@ -143,6 +143,27 @@ require('./routes/proof_route')(proofRoute);
 app.use('/api', proofRoute)
 //app.use('/api', analyticRoute);
 
+
+///////////////////////////////////////////////////////////////////////
+/////////////////     ERROR HANDLING ROUTINES      ////////////////////
+//////////////////////////////////////////////////////////////////////
+
+app.use(logErrors)
+app.use(errorHandler)
+
+function logErrors (err, req, res, next) {
+  console.log("log error triggered")
+  console.error(err.message)
+  console.error(err.stack)
+  next(err)
+}
+
+function errorHandler (err, req, res, next) {
+  console.log("error handler triggered")
+  res.status(400)
+  res.render('error', { error: err })
+}
+
 ///////////////////////////////////////////////////////////////////////
 /////////////////Launch Server---  Connect Sockets ////////////////////
 //////////////////////////////////////////////////////////////////////

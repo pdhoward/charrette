@@ -31,12 +31,12 @@ module.exports = function(router) {
 		let alpha = new AlphaChat ({path: '/sales',
 	                                text: 'experimental process',
 	                                source: 'sales',
-	                                workreq: 'this is the workreq'});		
+	                                workreq: 'this is the workreq'});
 
 		// configure the alpha object
 		alpha.configure([ { name: 'clients',
 		 										data: clientObjects },
-											{ name: 'agents',
+											{ name: 'agentsx',
 											  data: agentObjects },
 											{ name: 'platforms',
 												data: platformObjects } ])
