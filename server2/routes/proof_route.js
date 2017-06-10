@@ -36,7 +36,7 @@ module.exports = function(router) {
 		// configure the alpha object
 		alpha.configure([ { name: 'clients',
 		 										data: clientObjects },
-											{ name: 'agentsx',
+											{ name: 'agents',
 											  data: agentObjects },
 											{ name: 'platforms',
 												data: platformObjects } ])
