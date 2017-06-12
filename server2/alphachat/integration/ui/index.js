@@ -48,11 +48,11 @@ function formatUI(workreq) {
     switch (workreq.channel) {
       case TWILIOSMS:
         console.log('--------DEBUG---------')
-        console.log(getformatTwilioSMS)
         console.log({workreq: workreq})
 
-        getformatTwilioSMS(workreq, function() {
+        getformatTwilioSMS(workreq, function(data) {
           console.log('finished it')
+          console.log({data: data})
           return
         })
         break;
