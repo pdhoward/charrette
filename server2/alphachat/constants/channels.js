@@ -4,6 +4,7 @@
 //////////////////////////////////////////////////////////////////////
 
 export const TWILIOSMS = 'twiliosms';
+export const TWILIO =    'twilio';
 export const FACEBOOK =  'facebook';
 export const SLACK =     'slack';
 export const TELEGRAM =  'telegram';
@@ -16,7 +17,7 @@ export const WHATSAPP =  'whatsapp';
 export const HIPCHAT =   'hipchat';
 export const SKYPE =     'skype';
 export const VIBER =     'viber';
-export const ALEXI =     'alexi';
+export const ALEXA =     'alexa';
 export const SIRI =      'siri';
 export const LINE =      'line';
 export const WEBUI =     'webui';

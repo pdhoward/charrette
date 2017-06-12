@@ -26,9 +26,10 @@ module.exports = function(router) {
   router.post('/sms', function(req, res, next) {
 
 		// construct alpha object for managing interactions
-		// parameters to include > channel: twiliosms, storage: db, 
+		// parameters to include > channel: twiliosms, storage: db,
 
-		let alphaChat = new AlphaChat ({channel: 'twiliosms'});
+		let alphaChat = new AlphaChat ({channel: 'twiliosms',
+																		 db: null});
 
 		// configure the alpha object
 		alphaChat.configure([ { name: 'clients',

@@ -10,10 +10,11 @@ import util               from 'util';
 import AlphaClient        from './config/alphaclient.js';
 import AlphaAgent         from './config/alphaagent.js';
 import AlphaPlatform      from './config/alphaplatform.js';
+import formatUI           from './integration/ui';
 import errorMessage       from './messages/errorcodes.js';
 import EventSource        from './lib/eventsource.js';
-// import ErrorEmitter       from './lib/erroremitter.js';
 import EventEmitter       from 'events';
+
 
 const NEW_SESSION =     'New Session';
 const ACTIVE_SESSION =  'Active Session';
@@ -27,9 +28,10 @@ let n = 0;
 module.exports = AlphaChat;
 
 // constructor function for 'straight through' execution of microservices
-function AlphaChat (workreq) {
-  this.workreq = workreq;
-  this._count = n++;
+function AlphaChat (args) {
+  this.channel = args.channel;
+  this.db = args.db
+  this._messagesProcessed = n++;
   this._newSession = false;
   this._activeSession = false;
   this._endSession = false;
@@ -55,10 +57,21 @@ AlphaChat.prototype.catchError = function() {
 }
 ////////////////////////////////////
 
-//
+// main processing function that is invoked with new message from channel
 
 AlphaChat.prototype.processMessage = function(data) {
-  
+
+    let workreq = {};
+    workreq.channel = this.channel;
+    workreq.db =      this.db
+    workreq.orgMsg =  data
+
+    formatUI(workreq, function(response) {
+      console.log('------------')
+      console.log('STEP 1 FORMAT - DONE')
+      console.log(response)
+      return
+    })
 
 }
 
