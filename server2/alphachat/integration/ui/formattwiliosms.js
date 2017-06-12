@@ -5,7 +5,7 @@
 //////////////////   import sdk based on agent handler   //////////////
 //////////////////////////////////////////////////////////////////////
 
-import {formatTwilioSMS} from './test';
+import formatTwilioSMS from './test';
 export const getformatTwilioSMS = formatTwilioSMS.get.bind(formatTwilioSMS)
 
 /*

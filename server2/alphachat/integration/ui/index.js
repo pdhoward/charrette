@@ -26,7 +26,7 @@ import { formatWeChat }    from './formatwechat';
 
 
 const actions = [
-  { channel: TWILIOSMS, handler: formatTwilioSMS },
+  { channel: TWILIOSMS, handler: getformatTwilioSMS },
   { channel: TWILIO,    handler: formatTwilio },
   { channel: FACEBOOK,  handler: formatFacebook },
   { channel: SLACK,     handler: formatSlack },
