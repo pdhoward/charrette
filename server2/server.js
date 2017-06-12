@@ -24,5 +24,5 @@ else{
       presets: ['es2015']
   });
   require('babel-polyfill');
-	require('./micro.js')
+	require('./index.js')
 }

@@ -13,14 +13,12 @@ import platformObjects    from "../config/platforms.js"
 
 // create an event queue
 var q = require('async/queue')(function (alphaChat, callback) {
-		console.log('------------------------------')
-    console.log(alphaChat);
-		alphaChat.executeSession({text: 'update'});
+		alphaChat.processMessage({text: 'update'});
     callback();
 }, 2);
 
 ////////////////////////////////////////////////////////////
-////////////////      proof route  ////////////////////////
+////////////////   sms message route  /////////////////////
 //////////////////////////////////////////////////////////
 
 module.exports = function(router) {
@@ -28,11 +26,9 @@ module.exports = function(router) {
   router.post('/sms', function(req, res, next) {
 
 		// construct alpha object for managing interactions
+		// parameters to include > channel: twiliosms, storage: db, 
 
-		let alphaChat = new AlphaChat ({path: '/sales',
-	                                text: 'experimental process',
-	                                source: 'sales',
-	                                workreq: 'this is the workreq'});
+		let alphaChat = new AlphaChat ({channel: 'twiliosms'});
 
 		// configure the alpha object
 		alphaChat.configure([ { name: 'clients',

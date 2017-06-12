@@ -38,7 +38,7 @@ function AlphaChat (workreq) {
   this._sessionID = uuid();
 };
 
-//  TEST
+//  set up listeners for errors detected in processing objects
 util.inherits(AlphaChat, EventEmitter)
 
 AlphaChat.prototype.throwError = function(err) {
@@ -52,6 +52,14 @@ AlphaChat.prototype.catchError = function() {
     console.log('ERROR DETECTED')
     console.log(data)
   })
+}
+////////////////////////////////////
+
+//
+
+AlphaChat.prototype.processMessage = function(data) {
+  
+
 }
 
 
@@ -123,9 +131,6 @@ AlphaChat.prototype.configurePlatforms = function(obj) {
 }
 
 AlphaChat.prototype.recordSession = function(data) {
-  this.workreq = Object.assign(this.workreq, data);
-  console.log("Hyper Session Recorded")
-  console.log(this.workreq)
 
 }
 
@@ -142,10 +147,5 @@ AlphaChat.prototype.endSession = function() {
 }
 
 AlphaChat.prototype.formatMessage = function() {
-
-}
-
-AlphaChat.prototype.executeSession = function(data) {
-  this.recordSession(data)
 
 }

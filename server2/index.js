@@ -127,12 +127,12 @@ var pick = function(caseData, functionData) {
 //////////////////// Register and Config Routes /////////////////////////
 ////////////////////////////////////////////////////////////////////////
 
-const salesRoute =       express.Router();
-const proofRoute =       express.Router();
-const analyticRoute =    express.Router();
+const fbRoute =           express.Router();
+const smsRoute =          express.Router();
+const analyticRoute =     express.Router();
 
-require('./routes/sales_route')(salesRoute);
-require('./routes/proof_route')(proofRoute);
+require('./routes/fb_route')(fbRoute);
+require('./routes/sms_route')(smsRoute);
 //require('./routes/analytic_route')(analyticRoute);
 
 //////////////////////////////////////////////////////////////////////////
@@ -140,7 +140,7 @@ require('./routes/proof_route')(proofRoute);
 ////////////////////////////////////////////////////////////////////////
 
 //app.use('/api', salesRoute)
-app.use('/api', proofRoute)
+app.use('/api', smsRoute)
 //app.use('/api', analyticRoute);
 
 /*
