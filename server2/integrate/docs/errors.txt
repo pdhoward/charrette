@@ -1,8 +1,0 @@
-
-AlphaChat
-ERROR MESSAGES
-
-
-1001: No configuration objects detected (.configure)
-
-1011: Missing mandatory configuration object (.configure agents or platforms)

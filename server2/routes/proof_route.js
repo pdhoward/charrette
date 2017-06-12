@@ -6,7 +6,7 @@
 require( 'dotenv' ).config();
 import bodyParser         from 'body-parser';
 
-import AlphaChat          from "../integrate/AlphaChat.js";
+import AlphaChat          from "../alphachat/alphachat.js";
 import clientObjects      from "../config/clients.js"
 import agentObjects       from "../config/agents.js"
 import platformObjects    from "../config/platforms.js"
@@ -20,7 +20,7 @@ var q = require('async/queue')(function (alphaChat, callback) {
 }, 2);
 
 ////////////////////////////////////////////////////////////
-////////////////      proof bot  //////////////////////////
+////////////////      proof route  ////////////////////////
 //////////////////////////////////////////////////////////
 
 module.exports = function(router) {
