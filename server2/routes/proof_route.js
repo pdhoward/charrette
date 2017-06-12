@@ -5,16 +5,17 @@
 
 require( 'dotenv' ).config();
 import bodyParser         from 'body-parser';
+
 import AlphaChat          from "../integrate/AlphaChat.js";
 import clientObjects      from "../config/clients.js"
 import agentObjects       from "../config/agents.js"
 import platformObjects    from "../config/platforms.js"
 
 // create an event queue
-var q = require('async/queue')(function (alpha, callback) {
+var q = require('async/queue')(function (alphaChat, callback) {
 		console.log('------------------------------')
-    console.log(alpha);
-		alpha.executeSession({text: 'update'});
+    console.log(alphaChat);
+		alphaChat.executeSession({text: 'update'});
     callback();
 }, 2);
 
@@ -28,18 +29,18 @@ module.exports = function(router) {
 
 		// construct alpha object for managing interactions
 
-		let alpha = new AlphaChat ({path: '/sales',
+		let alphaChat = new AlphaChat ({path: '/sales',
 	                                text: 'experimental process',
 	                                source: 'sales',
 	                                workreq: 'this is the workreq'});
 
 		// configure the alpha object
-		alpha.configure([ { name: 'clients',
-		 										data: clientObjects },
-											{ name: 'agents',
-											  data: agentObjects },
-											{ name: 'platforms',
-												data: platformObjects } ])
+		alphaChat.configure([ { name: 'clients',
+		 										    data: clientObjects },
+											    { name: 'agents',
+											      data: agentObjects },
+											    { name: 'platforms',
+												    data: platformObjects } ])
 
 		// assign a callback on the work queue
 	  q.drain = function() {
@@ -48,8 +49,8 @@ module.exports = function(router) {
 	  }
 
 	  // push the alpha object to the qeueu for execution
-	  q.push(alpha, function (err) {
-	    console.log('finished processing a alphasession');
+	  q.push(alphaChat, function (err) {
+	    console.log('finished processing a session');
 	  });
 
 		res.setHeader('Content-Type', 'text/xml')

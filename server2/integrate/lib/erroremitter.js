@@ -7,16 +7,16 @@
 ////////////////////////////////////////////////////////////
 
 // constructor for emitting errors
-
+var util = require('util');
 var EventEmitter =    require('events').EventEmitter
 
-class ErrorEmitter extends EventEmitter {
-  constructor() {
-    super()
-  }
-  write(data) {
-    this.emit('data', data)
+var ErrorEmitter = function() {
+
+  var self = this;
+  write function(data) {
+    self.emit('data', data)
   }
 }
 
+util.inherits(ErrorEmitter, EventEmitter);
 module.exports = ErrorEmitter
