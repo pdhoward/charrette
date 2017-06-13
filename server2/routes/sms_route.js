@@ -13,8 +13,10 @@ import platformObjects    from "../config/platforms.js"
 
 // create an event queue
 var q = require('async/queue')(function (alphaChat, callback) {
-		alphaChat.processMessage({text: 'update'});
-    callback();
+		let response = alphaChat.processMessage({text: 'original message', from: '9145005391', to: '9148002121'})
+		console.log('-------SMS ROUTE COMPLETED ----------')
+		console.log({response: response})
+		callback();
 }, 2);
 
 ////////////////////////////////////////////////////////////

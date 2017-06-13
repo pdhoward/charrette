@@ -40,74 +40,71 @@ const actions = [
 
 module.exports = formatUI;
 
-function formatUI(workreq) {
+function formatUI(workreq, cb) {
 
   console.log('----ENTERED UI INDEX FORMAT UI-----')
   console.log({workreq: workreq})
 
     switch (workreq.channel) {
       case TWILIOSMS:
-        console.log('--------DEBUG---------')
-        console.log({workreq: workreq})
-
         getformatTwilioSMS(workreq, function(data) {
           console.log('finished it')
           console.log({data: data})
-          return
+          cb(data)
         })
         break;
         case TWILIO:
           getformatTwilio.get(workreq, function() {
             console.log('finished it')
-            return
+            cb(data)
           })
         break;
         case FACEBOOK:
           getformatFacebook.get(workreq, function() {
             console.log('finished it')
-            return
+            cb(data)
           })
         break;
         case SLACK:
           getformatSlack.get(workreq, function() {
             console.log('finished it')
-            return
+            cb(data)
           })
         break;
         case WEBUI:
           getformatWebUI.get(workreq, function() {
             console.log('finished it')
-            return
+            cb(data)
           })
         break;
         case TWITTER:
           getformatTwitter.get(workreq, function() {
             console.log('finished it')
-            return
+            cb(data)
           })
         break;
         case SIRI:
           getformatSiri.get(workreq, function() {
             console.log('finished it')
-            return
+            cb(data)
           })
         break;
         case ALEXA:
           getformatAlexa.get(workreq, function() {
             console.log('finished it')
-            return
+            cb(data)
           })
         break;
         case LINE:
           getformatLine.get(workreq, function() {
             console.log('finished it')
-            return
+            cb(data)
           })
         break;
         case WECHAT:
           getformatWeChat.get(workreq, function() {
             console.log('finished it')
-            return
+            cb(data)
           })
         break;
       default:

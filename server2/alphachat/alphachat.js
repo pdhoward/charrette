@@ -40,7 +40,9 @@ function AlphaChat (args) {
   this._sessionID = uuid();
 };
 
-//  set up listeners for errors detected in processing objects
+////////////////////////////////////////
+// listeners for errors detected    ///
+//////////////////////////////////////
 util.inherits(AlphaChat, EventEmitter)
 
 AlphaChat.prototype.throwError = function(err) {
@@ -55,9 +57,10 @@ AlphaChat.prototype.catchError = function() {
     console.log(data)
   })
 }
-////////////////////////////////////
 
-// main processing function that is invoked with new message from channel
+////////////////////////////////////////
+//        mainline process          ///
+//////////////////////////////////////
 
 AlphaChat.prototype.processMessage = function(data) {
 
@@ -70,11 +73,15 @@ AlphaChat.prototype.processMessage = function(data) {
       console.log('------------')
       console.log('STEP 1 FORMAT - DONE')
       console.log(response)
-      return
+      return response
     })
 
 }
 
+
+////////////////////////////////////////
+//        event sourcing            ///
+//////////////////////////////////////
 
 AlphaChat.prototype.addEvent = function(api) {
   this.events.push(new EventSource(api));
