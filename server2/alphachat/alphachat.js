@@ -62,7 +62,7 @@ AlphaChat.prototype.catchError = function() {
 //        mainline process          ///
 //////////////////////////////////////
 
-AlphaChat.prototype.processMessage = function(data) {
+AlphaChat.prototype.processMessage = function(data, cb) {
 
     let workreq = {};
     workreq.channel = this.channel;
@@ -73,7 +73,8 @@ AlphaChat.prototype.processMessage = function(data) {
       console.log('------------')
       console.log('STEP 1 FORMAT - DONE')
       console.log(response)
-      return response
+      return cb(response)
+
     })
 
 }

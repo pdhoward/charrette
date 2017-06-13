@@ -49,6 +49,12 @@ function formatUI(workreq, cb) {
       case TWILIOSMS:
         getformatTwilioSMS(workreq, function(data) {
           console.log('finished it')
+          let newMsg = {
+            text: 'this is the updated message from formatUI',
+            from: data.orgMsg.from,
+            to: data.orgMsg.to
+          }
+          data.newMsg = newMsg;
           console.log({data: data})
           cb(data)
         })
