@@ -29,8 +29,10 @@ module.exports = AlphaChat;
 
 // constructor function for 'straight through' execution of microservices
 function AlphaChat (args) {
-  this.channel = args.channel;
-  this.db = args.db
+  this.channel = '';
+  this.db = 'local'
+  if (args) {
+  this.db = args.db }
   this._messagesProcessed = n++;
   this._newSession = false;
   this._activeSession = false;
@@ -64,11 +66,46 @@ AlphaChat.prototype.catchError = function() {
 
 AlphaChat.prototype.processMessage = function(data, cb) {
 
+    // open an event listener for errors
+    this.catchError();
+
     let workreq = {};
-    workreq.channel = this.channel;
+    workreq.channel = data.channel;
     workreq.db =      this.db
     workreq.orgMsg =  data
+    workreq.orgMsg.messagesProcessed = this._messagesProcessed;
 
+    let myFirstPromise = new Promise((resolve, reject) => {
+      setTimeout(function(){
+        resolve("ASYNC TEST WORKED"); // Yay! Everything went well!
+      }, 4050);
+    });
+
+    let anotherPromise = new Promise((resolve, reject) => {
+      formatUI(workreq, function(response) {
+        resolve(response)
+      })
+    })
+
+    async function test() {
+      await myFirstPromise.then((successMessage) => {
+        console.log("Yay! " + successMessage);
+      });
+
+      await anotherPromise.then((response) => {
+        console.log('------------')
+        console.log('STEP 1 FORMAT - DONE')
+        console.log(response)
+        return cb(response)
+      })
+
+    }
+
+
+
+
+    test()
+/*
     formatUI(workreq, function(response) {
       console.log('------------')
       console.log('STEP 1 FORMAT - DONE')
@@ -76,8 +113,19 @@ AlphaChat.prototype.processMessage = function(data, cb) {
       return cb(response)
 
     })
-
+*/
 }
+/*
+const makeRequest = async () => {
+  await callAPromise()
+  await callAPromise()
+  await callAPromise()
+  await callAPromise()
+  await callAPromise()
+  throw new Error("oops");
+}
+*/
+
 
 
 ////////////////////////////////////////
@@ -103,11 +151,7 @@ AlphaChat.prototype.sessionState = function() {
 // Configure the client, agent and platform objects used to call services
 AlphaChat.prototype.configure = function(arry) {
 
-  // open an event listener for errors
-  this.catchError();
-
   let x = arry.length;
-  let isClient = false;
   let isAgent = false;
   let isPlatform = false;
 
@@ -117,11 +161,6 @@ AlphaChat.prototype.configure = function(arry) {
   }
 
   arry.map(function(x){
-    if (x.name == "clients") {
-      let alphaClient = new AlphaClient;
-      isClient = true;
-      alphaClient.configure(x.data);
-    }
     if (x.name == "agents") {
       let alphaAgent = new AlphaAgent;
       isAgent = true;

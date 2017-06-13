@@ -7,14 +7,18 @@ require( 'dotenv' ).config();
 import bodyParser         from 'body-parser';
 
 import AlphaChat          from "../alphachat/alphachat.js";
-import clientObjects      from "../config/clients.js"
 import agentObjects       from "../config/agents.js"
 import platformObjects    from "../config/platforms.js"
 
 // create an event queue
 var q = require('async/queue')(function (alphaChat, callback) {
+		let workreq = {};
+		workreq.channel = 'twiliosms';
+		workreq.text =    'original message';
+		workreq.from =		'9145005391';
+		workreq.to =      '9148002121'
 
-		alphaChat.processMessage({text: 'original message', from: '9145005391', to: '9148002121'}, function(response){
+		alphaChat.processMessage(workreq, function(response){
 			console.log('-------SMS CB COMPLETED ----------')
 			console.log(response)
 		})
@@ -33,13 +37,10 @@ module.exports = function(router) {
 		// construct alpha object for managing interactions
 		// parameters to include > channel: twiliosms, storage: db,
 
-		let alphaChat = new AlphaChat ({channel: 'twiliosms',
-																		 db: null});
+		let alphaChat = new AlphaChat ( {db: 'local'} );
 
 		// configure the alpha object
-		alphaChat.configure([ { name: 'clients',
-		 										    data: clientObjects },
-											    { name: 'agents',
+		alphaChat.configure([ { name: 'agents',
 											      data: agentObjects },
 											    { name: 'platforms',
 												    data: platformObjects } ])
