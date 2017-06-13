@@ -14,28 +14,28 @@ import { TWILIOSMS, TWILIO,
         }                  from '../../constants/channels.js'
 
 import { getformatTwilioSMS } from './formattwiliosms';
-import { formatTwilio }    from './formattwilio';
-import { formatFacebook }  from './formatfacebook';
-import { formatSlack }     from './formatslack';
-import { formatWebUI }     from './formatwebui';
-import { formatTwitter }   from './formattwitter';
-import { formatSiri }      from './formatsiri';
-import { formatAlexa }     from './formatalexa';
-import { formatLine }      from './formatline';
-import { formatWeChat }    from './formatwechat';
+import { getformatTwilio }    from './formattwilio';
+import { getformatFacebook }  from './formatfacebook';
+import { getformatSlack }     from './formatslack';
+import { getformatWebUI }     from './formatwebui';
+import { getformatTwitter }   from './formattwitter';
+import { getformatSiri }      from './formatsiri';
+import { getformatAlexa }     from './formatalexa';
+import { getformatLine }      from './formatline';
+import { getformatWeChat }    from './formatwechat';
 
 
 const actions = [
   { channel: TWILIOSMS, handler: getformatTwilioSMS },
-  { channel: TWILIO,    handler: formatTwilio },
-  { channel: FACEBOOK,  handler: formatFacebook },
-  { channel: SLACK,     handler: formatSlack },
-  { channel: WEBUI,     handler: formatWebUI },
-  { channel: TWITTER,   handler: formatTwitter },
-  { channel: SIRI,      handler: formatSiri },
-  { channel: ALEXA,     handler: formatAlexa },
-  { channel: LINE,      handler: formatLine },
-  { channel: WECHAT,    handler: formatWeChat },
+  { channel: TWILIO,    handler: getformatTwilio },
+  { channel: FACEBOOK,  handler: getformatFacebook },
+  { channel: SLACK,     handler: getformatSlack },
+  { channel: WEBUI,     handler: getformatWebUI },
+  { channel: TWITTER,   handler: getformatTwitter },
+  { channel: SIRI,      handler: getformatSiri },
+  { channel: ALEXA,     handler: getformatAlexa },
+  { channel: LINE,      handler: getformatLine },
+  { channel: WECHAT,    handler: getformatWeChat },
 ]
 
 module.exports = formatUI;
@@ -57,55 +57,55 @@ function formatUI(workreq) {
         })
         break;
         case TWILIO:
-          formatTwilio.get(workreq, function() {
+          getformatTwilio.get(workreq, function() {
             console.log('finished it')
             return
           })
         break;
         case FACEBOOK:
-          formatFacebook.get(workreq, function() {
+          getformatFacebook.get(workreq, function() {
             console.log('finished it')
             return
           })
         break;
         case SLACK:
-          formatSlack.get(workreq, function() {
+          getformatSlack.get(workreq, function() {
             console.log('finished it')
             return
           })
         break;
         case WEBUI:
-          formatWebUI.get(workreq, function() {
+          getformatWebUI.get(workreq, function() {
             console.log('finished it')
             return
           })
         break;
         case TWITTER:
-          formatTwitter.get(workreq, function() {
+          getformatTwitter.get(workreq, function() {
             console.log('finished it')
             return
           })
         break;
         case SIRI:
-          formatSiri.get(workreq, function() {
+          getformatSiri.get(workreq, function() {
             console.log('finished it')
             return
           })
         break;
         case ALEXA:
-          formatAlexa.get(workreq, function() {
+          getformatAlexa.get(workreq, function() {
             console.log('finished it')
             return
           })
         break;
         case LINE:
-          formatLine.get(workreq, function() {
+          getformatLine.get(workreq, function() {
             console.log('finished it')
             return
           })
         break;
         case WECHAT:
-          formatWeChat.get(workreq, function() {
+          getformatWeChat.get(workreq, function() {
             console.log('finished it')
             return
           })

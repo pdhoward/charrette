@@ -6,11 +6,13 @@
 //////////////////////////////////////////////////////////////////////
 
 
-module.exports = {
+const formatTwitter = {
   get: function(workreq, cb) {
     console.log('EXECUTING TWITTER SMS HANDLER')
     console.log(workreq)
-    return
+    cb(workreq)
 
   }
 }
+
+export const getformatTwitter = formatTwitter.get.bind(formatTwitter)

@@ -6,11 +6,13 @@
 //////////////////////////////////////////////////////////////////////
 
 
-module.exports = {
+const formatWebUI = {
   get: function(workreq, cb) {
     console.log('EXECUTING WEB UI HANDLER')
     console.log(workreq)
-    return
+    cb(workreq)
 
   }
 }
+
+export const getformatWebUI = formatWebUI.get.bind(formatWebUI)

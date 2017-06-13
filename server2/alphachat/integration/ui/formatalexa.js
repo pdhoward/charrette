@@ -6,11 +6,14 @@
 //////////////////////////////////////////////////////////////////////
 
 
-module.exports = {
+const formatAlexa = {
   get: function(workreq, cb) {
     console.log('EXECUTING ALEXA HANDLER')
     console.log(workreq)
-    return
+    cb(workreq)
 
   }
 }
+
+
+export const getformatAlexa = formatAlexa.get.bind(formatAlexa)

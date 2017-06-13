@@ -6,11 +6,13 @@
 //////////////////////////////////////////////////////////////////////
 
 
-module.exports = {
+const formatLine = {
   get: function(workreq, cb) {
     console.log('EXECUTING LINE HANDLER')
     console.log(workreq)
-    return
+    cb(workreq)
 
   }
 }
+
+export const getformatLine = formatLine.get.bind(formatLine)

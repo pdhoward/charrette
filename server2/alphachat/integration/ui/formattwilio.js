@@ -6,11 +6,13 @@
 //////////////////////////////////////////////////////////////////////
 
 
-module.exports = {
+const formatTwilio = {
   get: function(workreq, cb) {
     console.log('EXECUTING TWILIO HANDLER')
     console.log(workreq)
-    return
+    cb(workreq)
 
   }
 }
+
+export const getformatTwilio = formatTwilio.get.bind(formatTwilio)

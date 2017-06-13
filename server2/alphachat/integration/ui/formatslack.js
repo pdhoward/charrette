@@ -6,11 +6,14 @@
 //////////////////////////////////////////////////////////////////////
 
 
-module.exports = {
+const formatSlack = {
   get: function(workreq, cb) {
     console.log('EXECUTING SLACK HANDLER')
     console.log(workreq)
-    return
+    cb(workreq)
 
   }
 }
+
+
+export const getformatSlack = formatSlack.get.bind(formatSlack)

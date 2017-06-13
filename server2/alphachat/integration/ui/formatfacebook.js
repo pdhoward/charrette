@@ -6,11 +6,13 @@
 //////////////////////////////////////////////////////////////////////
 
 
-module.exports = {
+const formatFacebook = {
   get: function(workreq, cb) {
     console.log('EXECUTING FACEBOOK HANDLER')
     console.log(workreq)
-    return
+    cb(workreq)
 
   }
 }
+
+export const getformatFacebook = formatFacebook.get.bind(formatFacebook)

@@ -6,11 +6,13 @@
 //////////////////////////////////////////////////////////////////////
 
 
-module.exports = {
+const formatSiri = {
   get: function(workreq, cb) {
     console.log('EXECUTING SIRI HANDLER')
     console.log(workreq)
-    return
+    cb(workreq)
 
   }
 }
+
+export const getformatSiri = formatSiri.get.bind(formatSiri)

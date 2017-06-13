@@ -6,7 +6,7 @@
 //////////////////////////////////////////////////////////////////////
 
 
-module.exports = {
+const formatWeChat = {
   get: function(workreq, cb) {
     console.log('EXECUTING WECHAT HANDLER')
     console.log(workreq)
@@ -14,3 +14,5 @@ module.exports = {
 
   }
 }
+
+export const getformatWeChat = formatWeChat.get.bind(formatWeChat)
