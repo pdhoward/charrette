@@ -6,39 +6,45 @@
 
 
 const configureAgents = [
-  { name: 'shipper',	
+  { name: 'shipper',
 	avatar: 'https://www.gravatar.com/avatar/',
-	greeting: 'Hi I will help you ship',	
+	greeting: 'Hi I will help you ship',
 	handle: 'cb-dev-shipproduct',
 	platform: 'openwhisk'
 	   },
   { name: 'banter',
 	avatar: 'https://www.gravatar.com/avatar/',
-	greeting: 'Hi I will help you ship', 
+	greeting: 'Hi I will help you ship',
 	handle: 'cb-dev-banter',
 	platform: 'openwhisk'
    	 },
-  { name: 'sales',   
+  { name: 'sales',
     avatar: 'https://www.gravatar.com/avatar/',
-    greeting: 'Hi I am your sales rep',   
+    greeting: 'Hi I am your sales rep',
     handle: 'cb-dev-sales',
 	platform: 'openwhisk'
     },
-  { name: 'proof',   
+  { name: 'proof',
     avatar: 'https://www.gravatar.com/avatar/',
-    greeting: 'Hi I am proof, here to provide a reference', 
+    greeting: 'Hi I am proof, here to provide a reference',
     handle: 'cb-dev-proof',
 	platform: 'openwhisk'
     },
-  { name: 'avatar',    
+  { name: 'avatar',
     avatar: 'https://www.gravatar.com/avatar/',
-    greeting: 'Hi I am the avatar which creates live sessions', 
+    greeting: 'Hi I am the avatar which creates live sessions',
     handle: 'cb-dev-avatar',
 	platform: 'openwhisk'
     },
+  { name: 'echo',
+    avatar: 'https://www.gravatar.com/avatar/',
+    greeting: 'Hi I am the avatar which creates live sessions',
+    handle: 'cb-dev-avatar',
+  	platform: 'openwhisk'
+      },
   { name: 'purchase',
 	avatar: 'https://www.gravatar.com/avatar/',
-	greeting: 'Hi I will help you buy',	
+	greeting: 'Hi I will help you buy',
 	handle: 'cb-dev-orderproduct',
 	platform: 'openwhisk'
 	   },
@@ -56,12 +62,12 @@ const configureAgents = [
 		},
   { name: 'Alexa',
 	avatar: 'https://www.gravatar.com/avatar/',
-	greeting: 'Hello, this is Alexa. How can I help?',	
+	greeting: 'Hello, this is Alexa. How can I help?',
 	handle: 'Alexa',
 	platform: 'openwhisk'
 
 		},
-  { name: 'chaotic',	
+  { name: 'chaotic',
 	avatar: 'https://www.gravatar.com/avatar/',
 	greeting: 'Not known',
 	handle: 'cb-dev-chaotic',

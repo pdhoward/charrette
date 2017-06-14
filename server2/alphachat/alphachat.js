@@ -35,8 +35,11 @@ module.exports = AlphaChat;
 function AlphaChat (args) {
   this.channel = '';
   this.db = 'local'
-  if (args) {
+  this.entry = 'echo'
+  if (args.db) {
   this.db = args.db }
+  if (args.entry) {
+  this.echo = args.entry }
   this._messagesProcessed = n++;
   this._newSession = false;
   this._activeSession = false;
@@ -82,7 +85,7 @@ AlphaChat.prototype.processMessage = function(data, cb) {
     function Stage_100_Map(workreq) {
       return new Promise((resolve, reject) => {
         formatUI(workreq, function(err, response) {
-          if(err) return reject(err)        
+          if(err) return reject(err)
           resolve(response)
         })
       })

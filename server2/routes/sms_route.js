@@ -36,7 +36,8 @@ module.exports = function(router) {
 		// construct alpha object for managing interactions
 		// parameters to include > channel: twiliosms, storage: db,
 
-		let alphaChat = new AlphaChat ( {db: 'local'} );
+		let alphaChat = new AlphaChat ( {db: 'local',
+																		 entry: 'echo' } );
 
 		// configure the alpha object
 		alphaChat.configure([ { name: 'agents',
