@@ -19,11 +19,10 @@ var q = require('async/queue')(function (alphaChat, callback) {
 		workreq.to =      '9148002121'
 
 		alphaChat.processMessage(workreq, function(response){
-			console.log('-------SMS CB COMPLETED ----------')
+			console.log('-------SMS QUEUE COMPLETED ----------')
 			console.log(response)
+			return callback();
 		})
-		console.log('-------SMS ROUTE COMPLETED ----------')
-		callback();
 }, 2);
 
 ////////////////////////////////////////////////////////////
