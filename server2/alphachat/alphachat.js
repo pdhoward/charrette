@@ -79,72 +79,65 @@ AlphaChat.prototype.processMessage = function(data, cb) {
     workreq.orgMsg =  data
     workreq.orgMsg.messagesProcessed = this._messagesProcessed;
 
-    let Stage_100_Map = new Promise((resolve, reject) => {
-      formatUI(workreq, function(response) {
-        resolve(response)
-      })
-    })
-
-    let Stage_200_State = new Promise((resolve, reject) => {
-      setState(workreq, function(response) {
-        resolve(response)
-      })
-    })
-
-    let Stage_300_Agent = new Promise((resolve, reject) => {
-      findAgent(workreq, function(response) {
-        resolve(response)
-      })
-    })
-
-    let Stage_400_Call = new Promise((resolve, reject) => {
-      callAgent(workreq, function(response) {
-        resolve(response)
-      })
-    })
-
-    let Stage_500_Record = new Promise((resolve, reject) => {
-      recordResult(workreq, function(response) {
-        resolve(response)
-      })
-    })
-
-    async function message() {
-
-      await Stage_100_Map.then((response) => {
-        console.log('------------')
-        console.log('stage 100 map')
-        console.log(response)
-        //return cb(response)
-      })
-      await Stage_200_State.then((response) => {
-        console.log('------------')
-        console.log('stage 200 state')
-        console.log(response)
-        //return cb(response)
-      })
-      await Stage_300_Agent.then((response) => {
-        console.log('------------')
-        console.log('stage 300 agent')
-        console.log(response)
-      //  return cb(response)
-      })
-      await Stage_400_Call.then((response) => {
-        console.log('------------')
-        console.log('stage 400 call')
-        console.log(response)
-      //  return cb(response)
-      })
-      await Stage_500_Record.then((response) => {
-        console.log('------------')
-        console.log('stage 500 record')
-        console.log(response)
-        return cb(response)
+    function Stage_100_Map(workreq) {
+      return new Promise((resolve, reject) => {
+        formatUI(workreq, function(err, response) {
+          if(err) return reject(err)        
+          resolve(response)
+        })
       })
     }
 
-    message()
+    function Stage_200_State(workreq) {
+      return new Promise((resolve, reject) => {
+        setState(workreq, function(err, response) {
+          if(err) return reject(err)
+          resolve(response)
+        })
+      })
+    }
 
+    function Stage_300_Agent(workreq) {
+      return new Promise((resolve, reject) => {
+        findAgent(workreq, function(err, response) {
+          if(err) return reject(err)
+          resolve(response)
+        })
+      })
+    }
+
+    function Stage_400_Call(workreq) {
+      return new Promise((resolve, reject) => {
+        callAgent(workreq, function(err, response) {
+          if(err) return reject(err)
+          resolve(response)
+        })
+      })
+    }
+
+    function Stage_500_Record(workreq) {
+      return new Promise((resolve, reject) => {
+        recordResult(workreq, function(err, response) {
+          if(err) return reject(err)
+          resolve(response)
+        })
+      })
+    }
+
+    async function message() {
+      return {
+        result1: await Stage_100_Map(workreq),
+        result2: await Stage_200_State(workreq),
+        result3: await Stage_300_Agent(workreq),
+        result4: await Stage_400_Call(workreq),
+        result5: await Stage_500_Record(workreq)
+      }
+    }
+
+    message().then(function(data) {
+      console.log({data: data})
+      return cb(data)
+    })
 
 }
 

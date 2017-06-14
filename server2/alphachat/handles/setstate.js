@@ -13,9 +13,27 @@ function setState(workreq, cb) {
 
   console.log('----ENTERED SetState-----')
 
+  try {
+
   workreq.newMsg.text = 'this is the updated message from set state'
   console.log({workreq: workreq})
 
-  cb(workreq)
+  cb(null, workreq)
+
+  } catch(e) {
+
+    console.log('--error set state Agent-----')
+
+    if (e instanceof TypeError) {
+        console.log('debug 1')
+    } else if (e instanceof RangeError) {
+        console.log('debug 2')
+    } else if (e instanceof EvalError) {
+        console.log('debug 3')
+    } else {
+        console.log('debug 4')
+    }
+
+  }
 
   };

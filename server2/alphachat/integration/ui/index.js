@@ -41,22 +41,18 @@ const actions = [
 module.exports = formatUI;
 
 function formatUI(workreq, cb) {
-
-  console.log('----ENTERED UI INDEX FORMAT UI-----')
-  console.log({workreq: workreq})
-
     switch (workreq.channel) {
       case TWILIOSMS:
         getformatTwilioSMS(workreq, function(data) {
-          console.log('finished it')
+          console.log('----ENTERED FormatUI for Twilio SMS -----')
           let newMsg = {
-            text: 'this is the updated message from formatUI',
+            text: 'this is the updated message from format UI',
             from: data.orgMsg.from,
             to: data.orgMsg.to
           }
           data.newMsg = newMsg;
           console.log({data: data})
-          cb(data)
+          cb(null, data)
         })
         break;
         case TWILIO:
