@@ -15,7 +15,7 @@ function setState(workreq, cb) {
 
   try {
 
-  workreq.newMsg.text = 'this is the updated message from set state'
+  workreq.format.text = 'this is the updated message from set state'
   console.log({workreq: workreq})
 
   cb(null, workreq)

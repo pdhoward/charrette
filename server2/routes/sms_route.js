@@ -12,13 +12,7 @@ import platformObjects    from "../config/platforms.js"
 
 // create an event queue
 var q = require('async/queue')(function (alphaChat, callback) {
-		let workreq = {};
-		workreq.channel = 'twiliosms';
-		workreq.text =    'original message';
-		workreq.from =		'9145005391';
-		workreq.to =      '9148002121'
-
-		alphaChat.processMessage(workreq, function(response){
+		alphaChat.processMessage(function(response){
 			console.log('-------SMS QUEUE COMPLETED ----------')
 			console.log(response)
 			return callback();
@@ -33,11 +27,24 @@ module.exports = function(router) {
   router.use(bodyParser.json());
   router.post('/sms', function(req, res, next) {
 
+
+		///////////////////////////////////////////
+		/////////   SPOOF FOR TESTING ////////////
+		/////////    MOCK TWILIO FORMAT //////////
+		//////////////////////////////////////////
+		req.body = {}
+		req.body.From = '9145005391';
+		req.body.TO = '9148008888'
+		req.body.Body = "I am an original text message from twilio"
+		req.body.orgMsg = "Place Holder"
+
 		// construct alpha object for managing interactions
 		// parameters to include > channel: twiliosms, storage: db,
 
 		let alphaChat = new AlphaChat ( {db: 'local',
-																		 entry: 'echo' } );
+																		 entry: 'echo',
+																	   channel: 'twiliosms',
+																	 	 message: req} );
 
 		// configure the alpha object
 		alphaChat.configure([ { name: 'agents',

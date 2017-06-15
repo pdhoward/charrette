@@ -13,7 +13,7 @@ function findAgent(workreq, cb) {
 
   console.log('----ENTERED find agent-----')
 try {
-  workreq.newMsg.text = 'this is the updated message from find agent'
+  workreq.format.text = 'this is the updated message from find agent'
   console.log({workreq: workreq})
 
   cb(null,workreq)

@@ -13,7 +13,7 @@ function recordResult(workreq, cb) {
 
     console.log('----ENTERED Record Agent-----')
 try {
-    workreq.newMsg.text = 'this is the updated message from record agent'
+    workreq.format.text = 'this is the updated message from record agent'
     console.log({workreq: workreq})
 
     cb(null, workreq)

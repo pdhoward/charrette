@@ -13,7 +13,7 @@ function callAgent(workreq, cb) {
 
   console.log('----ENTERED Call Agent-----')
 try {
-  workreq.newMsg.text = 'this is the updated message from call agent'
+  workreq.format.text = 'this is the updated message from call agent'
   console.log({workreq: workreq})
 
   cb(null, workreq)

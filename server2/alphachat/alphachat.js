@@ -33,20 +33,29 @@ module.exports = AlphaChat;
 
 // constructor function for 'straight through' execution of microservices
 function AlphaChat (args) {
-  this.channel = '';
-  this.db = 'local'
-  this.entry = 'echo'
+
+  this.channel = args.channel;
+
+  this.workreq = {}
+  this.workreq = Object.assign({}, args.message)
+
+  this.db = 'local'          // default
   if (args.db) {
-  this.db = args.db }
+     this.db = args.db }
+
+  this._entryPoint = false
   if (args.entry) {
-  this.echo = args.entry }
-  this._messagesProcessed = n++;
+     this._entryPoint = true
+      this.entry = args.entry }
+
   this._newSession = false;
   this._activeSession = false;
   this._endSession = false;
   this._callback = false;
   this._redirect = false;
+  this._messagesProcessed = n++;
   this._sessionID = uuid();
+
 };
 
 ////////////////////////////////////////
@@ -71,62 +80,73 @@ AlphaChat.prototype.catchError = function() {
 //        mainline process          ///
 //////////////////////////////////////
 
-AlphaChat.prototype.processMessage = function(data, cb) {
+AlphaChat.prototype.processMessage = function(cb) {
 
     // open an event listener for errors
     this.catchError();
 
-    let workreq = {};
-    workreq.channel = data.channel;
-    workreq.db =      this.db
-    workreq.orgMsg =  data
-    workreq.orgMsg.messagesProcessed = this._messagesProcessed;
+    // Test for entry point. Service name required to get started
+    if (!this._entryPoint) {
+     this.throwError(errorMessage['1021']);
+     return
+    }
 
-    function Stage_100_Map(workreq) {
+    let workreq = {}
+
+    workreq = Object.assign({}, this.workreq)
+    workreq.alpha = {}
+    workreq.alpha.channel =  this.channel;
+    workreq.alpha.db =       this.db;
+    workreq.alpha.count =    this._messagesProcessed;
+    workreq.alpha.entry =    this.entry;
+    workreq.alpha.sessions = [] ;
+    workreq.alpha.sessions.push({sessionID: this._sessionID})
+
+    function Stage_100_Map(obj) {
       return new Promise((resolve, reject) => {
-        formatUI(workreq, function(err, response) {
+        formatUI(obj, function(err, response) {
           if(err) return reject(err)
           resolve(response)
         })
       })
     }
 
-    function Stage_200_State(workreq) {
+    function Stage_200_State(obj) {
       return new Promise((resolve, reject) => {
-        setState(workreq, function(err, response) {
+        setState(obj, function(err, response) {
           if(err) return reject(err)
           resolve(response)
         })
       })
     }
 
-    function Stage_300_Agent(workreq) {
+    function Stage_300_Agent(obj) {
       return new Promise((resolve, reject) => {
-        findAgent(workreq, function(err, response) {
+        findAgent(obj, function(err, response) {
           if(err) return reject(err)
           resolve(response)
         })
       })
     }
 
-    function Stage_400_Call(workreq) {
+    function Stage_400_Call(obj) {
       return new Promise((resolve, reject) => {
-        callAgent(workreq, function(err, response) {
+        callAgent(obj, function(err, response) {
           if(err) return reject(err)
           resolve(response)
         })
       })
     }
 
-    function Stage_500_Record(workreq) {
+    function Stage_500_Record(obj) {
       return new Promise((resolve, reject) => {
-        recordResult(workreq, function(err, response) {
+        recordResult(obj, function(err, response) {
           if(err) return reject(err)
           resolve(response)
         })
       })
     }
-
+/*
     async function message() {
       return {
         result1: await Stage_100_Map(workreq),
@@ -136,8 +156,21 @@ AlphaChat.prototype.processMessage = function(data, cb) {
         result5: await Stage_500_Record(workreq)
       }
     }
+*/
+    async function message(workreq) {
+      let stage100 = await Stage_100_Map(workreq)
+      let stage200 = await Stage_200_State(stage100)
+      let stage300 = await Stage_300_Agent(stage200)
+      let stage400 = await Stage_400_Call(stage300)
+      let stage500 = await Stage_500_Record(stage400)
 
-    message().then(function(data) {
+      return stage500
+
+    }
+
+
+    message(workreq).then(function(data) {
+      console.log('---ALPHACHAT COMPLETED----')
       console.log({data: data})
       return cb(data)
     })
