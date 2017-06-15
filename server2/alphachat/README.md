@@ -8,11 +8,13 @@ https://code.tutsplus.com/tutorials/validating-data-with-json-schema-part-1--cms
 https://www.npmjs.com/package/ajv
 
 --------------------------------
-
 nodejs 8
 async await
-
 -------------------------------
+
+using express sessions?
+persistent data store for tracking dialogues
+------------------------------
 
 need to validate i can deploy to bluemix (or zeit?)
 
