@@ -146,17 +146,7 @@ AlphaChat.prototype.processMessage = function(cb) {
         })
       })
     }
-/*
-    async function message() {
-      return {
-        result1: await Stage_100_Map(workreq),
-        result2: await Stage_200_State(workreq),
-        result3: await Stage_300_Agent(workreq),
-        result4: await Stage_400_Call(workreq),
-        result5: await Stage_500_Record(workreq)
-      }
-    }
-*/
+
     async function message(workreq) {
       let stage100 = await Stage_100_Map(workreq)
       let stage200 = await Stage_200_State(stage100)
@@ -167,7 +157,6 @@ AlphaChat.prototype.processMessage = function(cb) {
       return stage500
 
     }
-
 
     message(workreq).then(function(data) {
       console.log('---ALPHACHAT COMPLETED----')
