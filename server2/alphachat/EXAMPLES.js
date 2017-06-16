@@ -28,6 +28,7 @@ storage.getAvatar('jaffathecake').then(…);
 ////// over req object to track outgoing messages
 
 // override http(s) outgoing connections to track with botMetrics
+// using the req object to simplify metrics collections on backend
 const originalRequest = http.request;
 http.request = function wrapMethodRequest(req) {
   if (req.body) {
@@ -78,3 +79,41 @@ http.request = function wrapMethodRequest(req) {
   // call the original 'request' function
   return originalRequest.apply(this, arguments);
 };
+
+
+//   test to see existance of a config file
+/* eslint global-require: 0 import/no-unresolved:0 */
+
+const fs = require('fs');
+const path = require('path');
+
+const fileExist = fs.existsSync(path.resolve(__dirname, 'configuration.json'));
+
+if (fileExist) {
+    module.exports = require('./configuration.json');
+} else {
+    module.exports = require('./configuration_template.json');
+}
+
+/*  configuration_template.json
+{
+    "GA_Tracking_ID": "UA-000000-0",
+    "GA_Enabled": false,
+    "DB_Use_Mongo" : false,
+    "DB_Mongo_URL": "mongodb://localhost/retrospected",
+    "Use_Anti_Spam": false
+}
+
+// configuration.json
+
+{
+    "GA_Tracking_ID": "UA-000000-0",
+    "GA_Enabled": false,
+    "DB_Use_Mongo" : true,
+    "DB_Mongo_URL": "mongodb://xio:chaotic@ds147777.mlab.com:47777/chaoticchatter",
+    "Use_Anti_Spam": false,
+    "PUB_KEY": "pub-c-fd7baf82-35ee-4889-9a36-560d0681eee6",
+    "SUB_KEY": "sub-c-78144356-ac3b-11e6-a7bb-0619f8945a4f",
+    "PUB_SECRET": "sec-c-NzNhZTYwYTQtYjI2OC00YzliLWExZjQtMmQwMDc0YmZjMTQx"
+}
+*/

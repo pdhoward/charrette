@@ -15,7 +15,7 @@
      "cors": "^2.7.1",
      "dotenv": "^2.0.0",
      "events": "1.1.1",
-     "lokijs": "1.5.0",
+     "level": "1.7.0",
      "uuid": "^3.0.0",
      "request": "^2.69.0",
      "serve-favicon": "^2.3.0",

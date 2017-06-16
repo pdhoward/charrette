@@ -12,8 +12,11 @@ nodejs 8
 async await
 -------------------------------
 
-using express sessions?
-persistent data store for tracking dialogues
+using LevelDB for managing persistent session for tracking a dialogue
+
+LevelDB is thread-safe but is not suitable for accessing with multiple processes. You should only ever have a LevelDB database open from a single Node.js process. Node.js clusters are made up of multiple processes so a LevelUP instance cannot be shared between them either.
+
+See the wiki for some LevelUP extensions, including multilevel, that may help if you require a single data store to be shared across processes.
 ------------------------------
 
 need to validate i can deploy to bluemix (or zeit?)
