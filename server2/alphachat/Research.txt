@@ -1,0 +1,17 @@
+
+
+https://www.npmjs.com/package/dialog-api
+
+https://tutorials.botsfloor.com/opening-up-a-dialog-with-my-chatbot-4b653fe7ffcc
+
+
+microsoft bot framework
+https://medium.com/the-node-js-collection/bots-are-banging-getting-started-with-the-microsoft-bot-framework-node-js-b16ccb96b32f
+
+https://tutorials.botsfloor.com/opening-up-a-dialog-with-my-chatbot-4b653fe7ffcc
+
+conntinuation local storage
+https://www.npmjs.com/package/continuation-local-storage
+
+http://lokijs.org/#/
+
