@@ -34,7 +34,7 @@ module.exports = function(router) {
 		//////////////////////////////////////////
 		req.body = {}
 		req.body.From = '9145005391';
-		req.body.TO = '9148008888'
+		req.body.To = '9148008888'
 		req.body.Body = "I am an original text message from twilio"
 		req.body.orgMsg = "Place Holder"
 

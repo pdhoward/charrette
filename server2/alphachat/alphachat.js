@@ -46,7 +46,7 @@ function AlphaChat (args) {
   this._entryPoint = false
   if (args.entry) {
      this._entryPoint = true
-      this.entry = args.entry }
+     this.entry = args.entry }
 
   this._newSession = false;
   this._activeSession = false;
@@ -91,16 +91,28 @@ AlphaChat.prototype.processMessage = function(cb) {
      return
     }
 
+    ///////////////////////////////////////////
+    // workreq: execution obj for session   //
+    // .body - test data                   //
+    // .alpha - platform data              //
+    // .format - managed by UI handler     //
+    ////////////////////////////////////////
+
     let workreq = {}
 
     workreq = Object.assign({}, this.workreq)
     workreq.alpha = {}
-    workreq.alpha.channel =  this.channel;
-    workreq.alpha.db =       this.db;
-    workreq.alpha.count =    this._messagesProcessed;
-    workreq.alpha.entry =    this.entry;
+
+    workreq.alpha.channel =       this.channel;
+    workreq.alpha.db =            this.db;
+    workreq.alpha.count =         this._messagesProcessed;
+    workreq.alpha.entry =         this.entry;
+    workreq.alpha.activeSession = this._activeSession;
+    workreq.alpha.newSession =    this._newSession
     workreq.alpha.sessions = [] ;
     workreq.alpha.sessions.push({sessionID: this._sessionID})
+
+    // stages of transformation
 
     function Stage_100_Map(obj) {
       return new Promise((resolve, reject) => {
@@ -146,6 +158,9 @@ AlphaChat.prototype.processMessage = function(cb) {
         })
       })
     }
+
+    // workreq passed through each stage to transform incoming message and
+    // create a response
 
     async function message(workreq) {
       let stage100 = await Stage_100_Map(workreq)

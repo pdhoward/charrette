@@ -12,43 +12,42 @@ module.exports = setState;
 
 function setState(workreq, cb) {
 
-  console.log('----ENTERED SetState-----')
-  let key = 'nextname4'
-  let data = {
-      value: 'this is the NEW NEW VALUES'
-    }
-  key = 'nextname40'
-  putSession(key, data, function(){
-    console.log('PUT SESSION SUCCESS')
-  })
-  key = 'nextname41'
-  putSession(key, data, function(){
-    console.log('PUT SESSION SUCCESS')
-  })
-  key = 'nextname42'
-  putSession(key, data, function(){
-    console.log('PUT SESSION SUCCESS')
-  })
-
-  key = 'nextname14'
-  getSession(key, function(){
-    console.log('Get SESSION SUCCESS')
-  })
-
-  key = 'nextname22'
-
-  delSession(key, function(){
-    console.log('DEL SESSION SUCCESS')
-  })
-
+  console.log('----ENTERED SET STATE-----')
 
   try {
+    // pulse the session database to determine if this is active dialogue
 
-  workreq.format.text = 'this is the updated message from set state'
-  console.log({workreq: workreq})
-  console.log(workreq.alpha.sessions)
+    let parm = workreq.format.sender + workreq.format.receiver
+    let oldreq = Object.assign({}, workreq)
+    console.log("STEP 1")
+    console.log({parm: parm})
+    console.log({oldreq: oldreq})
 
-  cb(null, workreq)
+    getSession(parm, oldreq, function(err, value) {
+      if (err) {
+        if (err.notFound) {
+
+          // session is new. Record oldreq, pass back
+          oldreq.alpha.newSession = 'true'
+          oldreq.alpha.activeSession = 'false'
+          putSession(parm, oldreq, function(err) {
+              if (err) return cb(err)
+
+              console.log({workreq: oldreq})
+              cb(null, oldreq)
+            })
+          }
+          // some other kind of an IO error
+          return cb(err)
+        }
+
+      // found the state object - session is active
+      let newreq = Object.assign({}, value)
+      newreq.alpha.newSession = 'false'
+      newreq.alpha.activeSession = 'true'
+      console.log({workreq: newreq})
+      cb(null, newreq)
+    })
 
   } catch(e) {
 

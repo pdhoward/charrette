@@ -29,18 +29,16 @@ const session = {
     }
     console.log('EXECUTING PUT DB')
     db.put(key, data, options, function (err) {
-        if (err) return console.log('YIKES PUT!', err)
-        cb('true');
+        if (err) return cb(err)
+        cb(null);
       })
   },
-  get: function(key, cb) {
+  get: function(key, data, cb) {
     console.log('EXECUTING GET DB')
     console.log(key)
     db.get(key, function (err, value) {
-        if (err) return console.log('Oh No GET!', err)
-        console.log('key = ' + key)
-        console.log('value = ' + JSON.stringify((value)))
-        cb('true');
+      if (err) return cb(err)
+      cb(null, value);
       })
   },
   del: function(key, cb) {

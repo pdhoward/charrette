@@ -117,3 +117,34 @@ if (fileExist) {
     "PUB_SECRET": "sec-c-NzNhZTYwYTQtYjI2OC00YzliLWExZjQtMmQwMDc0YmZjMTQx"
 }
 */
+
+// examples of using leveldb
+
+  console.log('----ENTERED SetState-----')
+  let key = 'nextname4'
+  let data = {
+      value: 'this is the NEW NEW VALUES'
+    }
+  key = 'nextname40'
+  putSession(key, data, function(){
+    console.log('PUT SESSION SUCCESS')
+  })
+  key = 'nextname41'
+  putSession(key, data, function(){
+    console.log('PUT SESSION SUCCESS')
+  })
+  key = 'nextname42'
+  putSession(key, data, function(){
+    console.log('PUT SESSION SUCCESS')
+  })
+
+  key = 'nextname14'
+  getSession(key, function(){
+    console.log('Get SESSION SUCCESS')
+  })
+
+  key = 'nextname22'
+
+  delSession(key, function(){
+    console.log('DEL SESSION SUCCESS')
+  })
