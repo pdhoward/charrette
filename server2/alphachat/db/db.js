@@ -7,7 +7,7 @@
 
 import level          from 'level';
 
-const db = level('./alphachat/db/dbsession', { valueEncoding: 'json' })
+const db = level('./alphachat/db/dbsession', { keyEncoding: 'json', valueEncoding: 'json' })
 
 /*
 require('leveldown').destroy('./alphachat/db/dbsession', function (err) {
