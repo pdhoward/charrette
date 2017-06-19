@@ -30,7 +30,7 @@ function setState(workreq, cb) {
       if (err) {
         if (err.notFound) {
 
-          // session is new. Store oldreq and pass back
+          // session is new. Store workreq and pass back
           oldreq.alpha.newSession = 'true'
           oldreq.alpha.activeSession = 'false'
           putSession(parm, oldreq, function(err) {
@@ -43,12 +43,18 @@ function setState(workreq, cb) {
           // some other kind of an IO error
           return cb(err)
         }
-
-      // found the state object - session is active
-      let newreq = Object.assign({}, value)
+      // found the state object - session is active.
+      let newreq = Object.assign({}, oldreq)
       newreq.alpha.newSession = 'false'
       newreq.alpha.activeSession = 'true'
+      // restore the context that was recorded in db session
+      newreq.alpha.context = value.alpha.context
+      // restore session array and update with sessionId from incoming req message
+      newreq.alpha.sessions = value.alpha.sessions.concat(oldreq.alpha.sessions)
+
       console.log({workreq: newreq})
+      console.log('sessions array')
+      console.log(newreq.alpha.sessions)
       cb(null, newreq)
     })
 

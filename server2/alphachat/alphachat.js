@@ -97,10 +97,10 @@ AlphaChat.prototype.processMessage = function(cb) {
      return
     }
 
-    ///////////////////////////////////////////
-    // workreq: execution obj for session   //
-    // .body - http data  (newreq)          //
-    // .alpha - platform data              //
+    /////////////////////////////////////////////
+    // workreq: execution obj for session     //
+    // .body - http message  (newreq)        //
+    // .alpha - platform data               //
     // .format - managed by UI handler     //
     ////////////////////////////////////////
 
@@ -115,6 +115,7 @@ AlphaChat.prototype.processMessage = function(cb) {
     workreq.alpha.entry =         this.entry;
     workreq.alpha.activeSession = this._activeSession;
     workreq.alpha.newSession =    this._newSession
+    workreq.alpha.context = {};
     workreq.alpha.sessions = [] ;
     workreq.alpha.sessions.push({sessionID: this._sessionID})
 
