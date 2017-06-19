@@ -36,8 +36,8 @@ function AlphaChat (args) {
 
   this.channel = args.channel;
 
-  this.workreq = {}
-  this.workreq = Object.assign({}, args.message)
+  this.newreq = {}
+  this.newreq = Object.assign({}, args.message)
 
   this.db = 'local'          // default
   if (args.db) {
@@ -85,6 +85,12 @@ AlphaChat.prototype.processMessage = function(cb) {
     // open an event listener for errors
     this.catchError();
 
+    // process for unhandledrejection event
+
+    process.on('unhandledRejection', error => {
+        console.log('unhandledRejection', error.message);
+      });
+
     // Test for entry point. Service name required to get started
     if (!this._entryPoint) {
      this.throwError(errorMessage['1021']);
@@ -93,14 +99,14 @@ AlphaChat.prototype.processMessage = function(cb) {
 
     ///////////////////////////////////////////
     // workreq: execution obj for session   //
-    // .body - test data                   //
+    // .body - http data  (newreq)          //
     // .alpha - platform data              //
     // .format - managed by UI handler     //
     ////////////////////////////////////////
 
     let workreq = {}
 
-    workreq = Object.assign({}, this.workreq)
+    workreq = Object.assign({}, this.newreq)
     workreq.alpha = {}
 
     workreq.alpha.channel =       this.channel;
@@ -126,7 +132,7 @@ AlphaChat.prototype.processMessage = function(cb) {
     function Stage_200_State(obj) {
       return new Promise((resolve, reject) => {
         setState(obj, function(err, response) {
-          if(err) return reject(err)
+          if(err) return reject(err);
           resolve(response)
         })
       })

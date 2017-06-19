@@ -23,6 +23,8 @@ function setState(workreq, cb) {
     }
 
     let oldreq = Object.assign({}, workreq)
+    console.log("DEBUG")
+    console.log(oldreq)
 
     getSession(parm, oldreq, function(err, value) {
       if (err) {
