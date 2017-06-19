@@ -40,11 +40,15 @@ const actions = [
 
 module.exports = formatUI;
 
+// note entire req object is passed in as part of initialization to facilitate
+// access to complex UI formats. But workreq is paired to essential embedded objects
+// in following stages
+
 function formatUI(workreq, cb) {
     switch (workreq.alpha.channel) {
       case TWILIOSMS:
         getformatTwilioSMS(workreq, function(data) {
-          console.log('finished it')          
+          console.log('finished it')
           cb(null, data)
         })
         break;

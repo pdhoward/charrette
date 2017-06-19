@@ -48,7 +48,6 @@ function AlphaChat (args) {
      this._entryPoint = true
      this.entry = args.entry }
 
-  this._newSession = false;
   this._activeSession = false;
   this._endSession = false;
   this._callback = false;
@@ -107,15 +106,15 @@ AlphaChat.prototype.processMessage = function(cb) {
     let workreq = {}
 
     workreq = Object.assign({}, this.newreq)
-    workreq.alpha = {}
 
+    workreq.alpha = {}
     workreq.alpha.channel =       this.channel;
     workreq.alpha.db =            this.db;
     workreq.alpha.count =         this._messagesProcessed;
     workreq.alpha.entry =         this.entry;
     workreq.alpha.activeSession = this._activeSession;
-    workreq.alpha.newSession =    this._newSession
     workreq.alpha.context = {};
+    workreq.alpha.sessionID =     this._sessionID;
     workreq.alpha.sessions = [] ;
     workreq.alpha.sessions.push({sessionID: this._sessionID})
 

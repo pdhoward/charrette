@@ -31,7 +31,6 @@ function setState(workreq, cb) {
         if (err.notFound) {
 
           // session is new. Store workreq and pass back
-          oldreq.alpha.newSession = 'true'
           oldreq.alpha.activeSession = 'false'
           putSession(parm, oldreq, function(err) {
               if (err) return cb(err)
@@ -44,8 +43,7 @@ function setState(workreq, cb) {
           return cb(err)
         }
       // found the state object - session is active.
-      let newreq = Object.assign({}, oldreq)
-      newreq.alpha.newSession = 'false'
+      let newreq = Object.assign({}, oldreq)      
       newreq.alpha.activeSession = 'true'
       // restore the context that was recorded in db session
       newreq.alpha.context = value.alpha.context
