@@ -16,6 +16,7 @@
      "dotenv": "^2.0.0",
      "events": "1.1.1",
      "level": "1.7.0",
+     "mongoose": "^4.4.6",
      "uuid": "^3.0.0",
      "request": "^2.69.0",
      "serve-favicon": "^2.3.0",

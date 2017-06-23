@@ -1,4 +1,4 @@
-
+require('dotenv').config();
 ////////////////////////////////////////////////////////////////
 /////                 AlphaChat                       ///////
 ////    Linking business with conversational markets   ///////
@@ -19,14 +19,19 @@ import errorMessage       from './messages/errorcodes.js';
 import EventSource        from './lib/eventsource.js';
 import EventEmitter       from 'events';
 
-
 const NEW_SESSION =     'New Session';
 const ACTIVE_SESSION =  'Active Session';
 const END_SESSION =     'End Session';
 
+////////////////////////////////////////////////////////////////
+////// Configure Data Store for Capturing Conversations  //////
+//////////////////////////////////////////////////////////////
+
+const dbURI =  process.env.MONGO_URI;
+require('./db/mongoose')(dbURI);
+
 // private
 let n = 0;
-
 
 //public
 module.exports = AlphaChat;
