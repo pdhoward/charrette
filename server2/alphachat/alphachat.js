@@ -18,6 +18,7 @@ import setState           from './handles/setstate.js';
 import errorMessage       from './messages/errorcodes.js';
 import EventSource        from './lib/eventsource.js';
 import EventEmitter       from 'events';
+import Message            from './db/models/Message.js'
 
 const NEW_SESSION =     'New Session';
 const ACTIVE_SESSION =  'Active Session';
@@ -122,6 +123,16 @@ AlphaChat.prototype.processMessage = function(cb) {
     workreq.alpha.sessionID =     this._sessionID;
     workreq.alpha.sessions = [] ;
     workreq.alpha.sessions.push({sessionID: this._sessionID})
+
+    // record to MongoDB
+    let newMessage = new Message({message: this.newreq.body, channel: this.channel});
+    newMessage.save(function (err, response) {
+      if (err) {
+          console.log("Error When Saving Text Message", err)
+          return err;
+        }
+      console.log("Message Saved")
+    })
 
     // stages of transformation
 

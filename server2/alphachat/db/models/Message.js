@@ -39,8 +39,8 @@ var MessageSchema = new Schema({
     type: String,
     validate: [
       function(input) {
-        for ( i = 0; i < channels.length; i++)  {
-          if (input == channels[i]) return true
+        for ( var i = 0; i < channels.length; i++)  {
+          if (input == channels[i]) return true      
         }
       },
       // Error Message
