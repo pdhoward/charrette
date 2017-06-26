@@ -43,7 +43,7 @@ function AlphaChat (args) {
   this.channel = args.channel;
 
   this.newreq = {}
-  this.newreq = Object.assign({}, args.message)
+  this.newreq = Object.assign({}, args.message)   // message = req object
 
   this.db = 'local'          // default
   if (args.db) {
