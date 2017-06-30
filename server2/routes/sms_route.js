@@ -5,8 +5,7 @@
 
 require( 'dotenv' ).config();
 import bodyParser         from 'body-parser';
-
-import AlphaChat          from "../alphachat/alphachat.js";
+import AlphaChat          from "../../../alphachat/alphachat.js";
 import agentObjects       from "../config/agents.js"
 import platformObjects    from "../config/platforms.js"
 

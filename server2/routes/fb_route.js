@@ -6,7 +6,7 @@
 require( 'dotenv' ).config();
 
 import bodyParser     from 'body-parser'
-import Charrette      from "../alphachat/alphachat.js";
+import Charrette      from "../../../alphachat/alphachat.js";
 
 const getConstructor = function() {
 	// creating and storing a new microservices conflict object
